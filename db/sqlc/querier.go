@@ -14,16 +14,26 @@ type Querier interface {
 	BanCompany(ctx context.Context, companyID uuid.UUID) error
 	BanUsers(ctx context.Context, userID uuid.UUID) error
 	CreateCompany(ctx context.Context, arg CreateCompanyParams) (Company, error)
+	CreateOTP(ctx context.Context, arg CreateOTPParams) (OTPVerification, error)
 	CreateUsers(ctx context.Context, arg CreateUsersParams) (User, error)
+	CreateVerificationRequest(ctx context.Context, arg CreateVerificationRequestParams) (VerificationRequest, error)
 	DeleteCompany(ctx context.Context, companyID uuid.UUID) error
+	DeleteOTP(ctx context.Context, otpID uuid.UUID) error
+	DeleteRequest(ctx context.Context, requestID uuid.UUID) error
 	DeleteUsers(ctx context.Context, userID uuid.UUID) error
 	GetCompanies(ctx context.Context, arg GetCompaniesParams) ([]GetCompaniesRow, error)
 	GetCompany(ctx context.Context, companyID uuid.UUID) (GetCompanyRow, error)
 	GetCompanyForUpdate(ctx context.Context, companyID uuid.UUID) (GetCompanyForUpdateRow, error)
+	GetOTP(ctx context.Context, otpID uuid.UUID) (OTPVerification, error)
+	GetOTPs(ctx context.Context, arg GetOTPsParams) ([]OTPVerification, error)
 	GetUser(ctx context.Context, userID uuid.UUID) (GetUserRow, error)
 	GetUsers(ctx context.Context, arg GetUsersParams) ([]GetUsersRow, error)
 	GetUsersForUpdate(ctx context.Context, userID uuid.UUID) (GetUsersForUpdateRow, error)
+	GetVerification(ctx context.Context, requestID uuid.UUID) (VerificationRequest, error)
+	GetVerifications(ctx context.Context, arg GetVerificationsParams) ([]VerificationRequest, error)
 	UpdateCompany(ctx context.Context, arg UpdateCompanyParams) (UpdateCompanyRow, error)
+	UpdateFailedAttempts(ctx context.Context, arg UpdateFailedAttemptsParams) (UpdateFailedAttemptsRow, error)
+	UpdateRequest(ctx context.Context, arg UpdateRequestParams) (VerificationRequest, error)
 	UpdateUsers(ctx context.Context, arg UpdateUsersParams) (UpdateUsersRow, error)
 }
 

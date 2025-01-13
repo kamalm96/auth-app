@@ -33,12 +33,13 @@ type Company struct {
 }
 
 type OTPVerification struct {
-	OtpID      uuid.UUID `json:"otp_id"`
-	UserID     uuid.UUID `json:"user_id"`
-	OtpCode    string    `json:"otp_code"`
-	ExpiresAt  time.Time `json:"expires_at"`
-	IsVerified bool      `json:"is_verified"`
-	CreatedAt  time.Time `json:"created_at"`
+	OtpID          uuid.UUID `json:"otp_id"`
+	UserID         uuid.UUID `json:"user_id"`
+	OtpCode        string    `json:"otp_code"`
+	ExpiresAt      time.Time `json:"expires_at"`
+	IsVerified     bool      `json:"is_verified"`
+	FailedAttempts int32     `json:"failed_attempts"`
+	CreatedAt      time.Time `json:"created_at"`
 }
 
 type Report struct {
@@ -67,6 +68,7 @@ type VerificationRequest struct {
 	RequestID          uuid.UUID `json:"request_id"`
 	UserID             uuid.UUID `json:"user_id"`
 	CompanyID          uuid.UUID `json:"company_id"`
+	OtpID              uuid.UUID `json:"otp_id"`
 	VerificationStatus string    `json:"verification_status"`
 	CreatedAt          time.Time `json:"created_at"`
 	UpdatedAt          time.Time `json:"updated_at"`

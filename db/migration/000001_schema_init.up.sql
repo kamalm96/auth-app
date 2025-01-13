@@ -23,10 +23,21 @@ CREATE TABLE "Company" (
   "isRestricted" bool NOT NULL DEFAULT false
 );
 
+CREATE TABLE "OTP_Verification" (
+  "otp_id" uuid PRIMARY KEY,
+  "user_id" uuid NOT NULL,
+  "otp_code" varchar(10) NOT NULL,
+  "expires_at" timestamptz NOT NULL,
+  "is_verified" bool NOT NULL DEFAULT false,
+  "failed_attempts" int NOT NULL DEFAULT 0,
+  "created_at" timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE "Verification_Request" (
   "request_id" uuid PRIMARY KEY,
   "user_id" uuid NOT NULL,
   "company_id" uuid NOT NULL,
+  "otp_id" uuid NOT NULL,
   "verification_status" varchar(20) NOT NULL DEFAULT 'pending',
   "created_at" timestamptz NOT NULL DEFAULT now(),
   "updated_at" timestamptz NOT NULL DEFAULT now()
@@ -51,17 +62,11 @@ CREATE TABLE "Admin" (
   "updated_at" timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE TABLE "OTP_Verification" (
-  "otp_id" uuid PRIMARY KEY,
-  "user_id" uuid NOT NULL,
-  "otp_code" varchar(10) NOT NULL,
-  "expires_at" timestamptz NOT NULL,
-  "is_verified" bool NOT NULL DEFAULT false,
-  "created_at" timestamptz NOT NULL DEFAULT now()
-);
+ALTER TABLE "OTP_Verification" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
 
 ALTER TABLE "Verification_Request" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
 ALTER TABLE "Verification_Request" ADD FOREIGN KEY ("company_id") REFERENCES "Company" ("company_id");
+ALTER TABLE "Verification_Request" ADD FOREIGN KEY ("otp_id") REFERENCES "OTP_Verification" ("otp_id");
+
 ALTER TABLE "Report" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
 ALTER TABLE "Report" ADD FOREIGN KEY ("company_id") REFERENCES "Company" ("company_id");
-ALTER TABLE "OTP_Verification" ADD FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
