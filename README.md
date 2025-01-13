@@ -17,14 +17,6 @@ This project is a backend application designed for user and company management w
 
 ---
 
-## Project Structure
-
-The project is organized as follows:
-db/ ├── migration/ │ ├── 000001_schema_init.up.sql # Initial schema definition │ ├── 000001_schema_init.down.sql # Rollback script for the initial schema ├── query/ │ ├── company.sql # SQL queries for company management │ ├── otp.sql # SQL queries for OTP verification │ ├── report.sql # SQL queries for reporting │ ├── user.sql # SQL queries for user management │ ├── verification.sql # SQL queries for verification requests ├── sqlc/ │ ├── company.sql.go # Generated Go code for company queries │ ├── db.go # Core database interactions │ ├── models.go # Database models │ ├── querier.go # Query interface │ ├── user.sql.go # Generated Go code for user queries go.mod # Go module dependencies go.sum # Module checksum file Makefile # Task automation (migrations, SQLC, etc.) README.md # Project documentation sqlc.yaml # SQLC configuration file
-
-
----
-
 ## Features
 
 - **User Management**: Create, retrieve, update, ban, and delete users.
